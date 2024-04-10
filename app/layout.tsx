@@ -19,7 +19,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={mouseMemoirs.className}>{children}</body>
+      <body className={`${mouseMemoirs.className} h-screen min-h-[667px]`}>
+        {children}
+      </body>
     </html>
   );
 }
