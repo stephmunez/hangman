@@ -46,7 +46,10 @@ const Category = () => {
         {categories.map((item) => (
           <li key={item}>
             <Link
-              href="/game"
+              href={{
+                pathname: "/game",
+                query: { category: item },
+              }}
               className="flex items-center justify-center rounded-[20px] bg-blue py-6 text-2xl uppercase leading-[120%] tracking-[1.2px] text-white shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(60,116,255,1)]"
             >
               {item}
