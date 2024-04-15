@@ -3,7 +3,6 @@
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
-import styles from "./game.module.css";
 
 const Game = () => {
   const searchParams = useSearchParams();
@@ -44,15 +43,42 @@ const Game = () => {
 
   // Function to display word placeholders
   const displayWord = () => {
-    return word
-      .split("")
-      .map((letter, i) => {
-        if (letter === " ") {
-          return <br key={i} />;
-        }
-        return guessedLetters.includes(letter) ? letter : "_";
-      })
-      .map((element, i) => <span key={i}>{element} </span>);
+    let display = [];
+    let wordArray = word.split("");
+    let currentIndex = 0;
+    while (currentIndex < wordArray.length) {
+      let line = [];
+      while (
+        currentIndex < wordArray.length &&
+        wordArray[currentIndex] !== " "
+      ) {
+        const letter = wordArray[currentIndex];
+        line.push(
+          <span
+            key={currentIndex}
+            className={`${guessedLetters.includes(letter) ? "opacity-100" : "opacity-25"} flex h-[4.125rem] w-10 items-center justify-center rounded-[12px] bg-blue text-[2.5rem] leading-[120%] tracking-[2px] text-white shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(60,116,255,1)] transition-opacity duration-300`}
+          >
+            {guessedLetters.includes(letter) ? letter : ""}
+          </span>,
+        );
+        currentIndex++;
+      }
+      display.push(
+        <div
+          key={currentIndex}
+          className="flex w-max max-w-full flex-wrap items-center justify-center gap-2"
+        >
+          {line}
+        </div>,
+      );
+      while (
+        currentIndex < wordArray.length &&
+        wordArray[currentIndex] === " "
+      ) {
+        currentIndex++;
+      }
+    }
+    return display;
   };
 
   // Check if the player has won
@@ -66,7 +92,7 @@ const Game = () => {
   };
 
   return (
-    <main className="flex h-full w-full flex-col gap-20 px-6 pb-40 pt-12">
+    <main className="relative flex h-full w-full flex-col gap-20 px-6 pb-40 pt-12">
       <div className="z-10 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <button className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF]">
@@ -77,9 +103,7 @@ const Game = () => {
               alt="menu icon"
             />
           </button>
-          <h1
-            className={`${styles.h1} text-[2.5rem] leading-[120%]  tracking-[2px]`}
-          >
+          <h1 className="text-[2.5rem] leading-[120%] tracking-[2px] text-white">
             {category}
           </h1>
         </div>
@@ -98,14 +122,16 @@ const Game = () => {
           />
         </div>
       </div>
+      <div className="z-10 flex w-full flex-col gap-[7.5rem]">
+        <div className="flex w-full flex-col items-center gap-3">
+          {displayWord()}
+        </div>
+      </div>
 
-      <h1>Hangman Game</h1>
-      <p>Category: {category}</p>
-      <p>Word: {displayWord()}</p>
-      <p>Incorrect Guesses: {incorrectGuesses}</p>
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 top-0 z-0 h-full w-full bg-gradient-to-b from-[#1A043A] from-0% via-[#151278] via-75% to-[#2B1677] to-100% opacity-85"></div>
       {/* Hangman visual component can be added here */}
       {!isWinner() && !isLoser() && (
-        <div>
+        <div className="z-10">
           {/* Display alphabet buttons for guessing */}
           {Array.from({ length: 26 }, (_, index) =>
             String.fromCharCode(65 + index),
