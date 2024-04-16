@@ -4,62 +4,36 @@ import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
+interface ModalProps {
+  message: string;
+  onClose: () => void;
+}
+
+const Modal: React.FC<ModalProps> = ({ message, onClose }) => {
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+      <div className="rounded-lg bg-white p-8 shadow-lg">
+        <p className="text-2xl">{message}</p>
+        <button
+          className="bg-blue-500 hover:bg-blue-700 mt-4 rounded px-4 py-2 font-bold text-white"
+          onClick={onClose}
+        >
+          Close
+        </button>
+      </div>
+    </div>
+  );
+};
+
 const Game = () => {
   const searchParams = useSearchParams();
   const [category, setCategory] = useState("");
   const [word, setWord] = useState("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState(0);
+  const [showModal, setShowModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState("");
   const letterButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await fetch("/data.json");
-        const data = await res.json();
-        const chosenCategory = searchParams.get("category") || "";
-        setCategory(chosenCategory);
-        if (chosenCategory) {
-          const words = data.categories[chosenCategory];
-          const randomIndex = Math.floor(Math.random() * words.length);
-          const randomWord = words[randomIndex].name.toUpperCase();
-          setWord(randomWord);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-    fetchData();
-  }, [searchParams]);
-
-  useEffect(() => {
-    const handleKeyPress = (event: KeyboardEvent) => {
-      const key = event.key.toUpperCase();
-      if (/^[A-Z]$/.test(key) && !guessedLetters.includes(key)) {
-        const button: HTMLButtonElement | null =
-          letterButtonsRef.current[key.charCodeAt(0) - 65];
-        if (button) {
-          button.click();
-        }
-      }
-    };
-
-    document.addEventListener("keypress", handleKeyPress);
-
-    return () => {
-      document.removeEventListener("keypress", handleKeyPress);
-    };
-  }, [guessedLetters]);
-
-  // Function to handle letter guesses
-  const handleGuess = (letter: string) => {
-    if (!guessedLetters.includes(letter)) {
-      setGuessedLetters([...guessedLetters, letter]);
-      if (!word.includes(letter)) {
-        setIncorrectGuesses(incorrectGuesses + 1);
-      }
-    }
-  };
 
   // Function to display word placeholders
   const displayWord = () => {
@@ -101,15 +75,85 @@ const Game = () => {
     return display;
   };
 
+  // Function to handle letter guesses
+  const handleGuess = (letter: string) => {
+    if (!guessedLetters.includes(letter)) {
+      setGuessedLetters([...guessedLetters, letter]);
+      if (!word.includes(letter)) {
+        setIncorrectGuesses(incorrectGuesses + 1);
+      }
+    }
+  };
+
   // Check if the player has won
   const isWinner = () => {
-    return word.split("").every((letter) => guessedLetters.includes(letter));
+    const wordWithoutSpaces = word.replace(/\s+/g, "");
+    return wordWithoutSpaces
+      .split("")
+      .every((letter) => guessedLetters.includes(letter));
   };
 
   // Check if the player has lost
   const isLoser = () => {
     return incorrectGuesses >= 6;
   };
+
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/data.json");
+        const data = await res.json();
+        const chosenCategory = searchParams.get("category") || "";
+        setCategory(chosenCategory);
+        if (chosenCategory) {
+          const words = data.categories[chosenCategory];
+          const randomIndex = Math.floor(Math.random() * words.length);
+          const randomWord = words[randomIndex].name.toUpperCase();
+          setWord(randomWord);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, [searchParams]);
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      const key = event.key.toUpperCase();
+      if (/^[A-Z]$/.test(key) && !guessedLetters.includes(key)) {
+        const button: HTMLButtonElement | null =
+          letterButtonsRef.current[key.charCodeAt(0) - 65];
+        if (button) {
+          button.click();
+        }
+      }
+    };
+
+    document.addEventListener("keypress", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keypress", handleKeyPress);
+    };
+  }, [guessedLetters]);
+
+  // useEffect hook to display the modal when winning or losing
+  useEffect(() => {
+    if (guessedLetters.length > 0) {
+      // Check if the user has made any guesses
+      if (isWinner()) {
+        setShowModal(true);
+        setModalMessage("Congratulations! You win!");
+      } else if (isLoser()) {
+        setShowModal(true);
+        setModalMessage(`You lose! The word was: ${word}`);
+      }
+    }
+  }, [guessedLetters, incorrectGuesses]);
 
   return (
     <main className="relative flex h-auto min-h-full w-full flex-col gap-20 px-6 pb-40 pt-12">
@@ -170,8 +214,7 @@ const Game = () => {
 
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 top-0 z-0 h-full w-full bg-gradient-to-b from-[#1A043A] from-0% via-[#151278] via-75% to-[#2B1677] to-100% opacity-85"></div>
 
-      {isWinner() && <p>You win!</p>}
-      {isLoser() && <p>You lose! The word was: {word}</p>}
+      {showModal && <Modal message={modalMessage} onClose={closeModal} />}
     </main>
   );
 };
