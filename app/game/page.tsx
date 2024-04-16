@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { Suspense, useCallback, useEffect, useRef, useState } from "react";
 import styles from "./game.module.css";
 
 interface ModalProps {
@@ -110,17 +110,17 @@ const Game = () => {
   };
 
   // Check if the player has won
-  const isWinner = () => {
+  const isWinner = useCallback(() => {
     const wordWithoutSpaces = word.replace(/\s+/g, "");
     return wordWithoutSpaces
       .split("")
       .every((letter) => guessedLetters.includes(letter));
-  };
+  }, [word, guessedLetters]);
 
   // Check if the player has lost
-  const isLoser = () => {
+  const isLoser = useCallback(() => {
     return incorrectGuesses >= 8;
-  };
+  }, [incorrectGuesses]);
 
   const openModal = () => {
     setShowModal(true);
@@ -204,7 +204,7 @@ const Game = () => {
         setModalMessage(`You Lose`);
       }
     }
-  }, [guessedLetters, incorrectGuesses]);
+  }, [guessedLetters, incorrectGuesses, isLoser, isWinner]);
 
   return (
     <main className="relative flex h-auto min-h-full w-full flex-col gap-20 px-6 pb-40 pt-12">
@@ -246,6 +246,7 @@ const Game = () => {
         <div className="flex w-full flex-col items-center gap-3">
           {displayWord()}
         </div>
+
         <div className="z-10 flex w-max max-w-full flex-wrap items-start gap-x-2 gap-y-6">
           {Array.from({ length: 26 }, (_, index) =>
             String.fromCharCode(65 + index),
@@ -279,4 +280,12 @@ const Game = () => {
   );
 };
 
-export default Game;
+const GamePage = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Game />
+    </Suspense>
+  );
+};
+
+export default GamePage;
