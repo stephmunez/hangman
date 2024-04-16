@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const Game = () => {
   const searchParams = useSearchParams();
@@ -10,6 +10,7 @@ const Game = () => {
   const [word, setWord] = useState("");
   const [guessedLetters, setGuessedLetters] = useState<string[]>([]);
   const [incorrectGuesses, setIncorrectGuesses] = useState(0);
+  const letterButtonsRef = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -30,6 +31,25 @@ const Game = () => {
     };
     fetchData();
   }, [searchParams]);
+
+  useEffect(() => {
+    const handleKeyPress = (event: KeyboardEvent) => {
+      const key = event.key.toUpperCase();
+      if (/^[A-Z]$/.test(key) && !guessedLetters.includes(key)) {
+        const button: HTMLButtonElement | null =
+          letterButtonsRef.current[key.charCodeAt(0) - 65];
+        if (button) {
+          button.click();
+        }
+      }
+    };
+
+    document.addEventListener("keypress", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keypress", handleKeyPress);
+    };
+  }, [guessedLetters]);
 
   // Function to handle letter guesses
   const handleGuess = (letter: string) => {
@@ -129,11 +149,18 @@ const Game = () => {
         <div className="z-10 flex w-max max-w-full flex-wrap items-start gap-x-2 gap-y-6">
           {Array.from({ length: 26 }, (_, index) =>
             String.fromCharCode(65 + index),
-          ).map((letter) => (
+          ).map((letter, index) => (
             <button
               key={letter}
+              ref={(ref: HTMLButtonElement | null) => {
+                if (ref) {
+                  letterButtonsRef.current[index] = ref;
+                } else {
+                  return undefined;
+                }
+              }}
               onClick={() => handleGuess(letter.toUpperCase())}
-              className="flex h-14 w-[1.813rem] items-center justify-center rounded-[8px] bg-white text-2xl leading-[150%] tracking-[-0.48px] text-dark-navy"
+              className={`${guessedLetters.includes(letter) ? "opacity-25" : "opacity-100"} flex h-14 w-[1.813rem] items-center justify-center rounded-[8px] bg-white text-2xl leading-[150%] tracking-[-0.48px] text-dark-navy transition-opacity duration-300`}
             >
               {letter}
             </button>
