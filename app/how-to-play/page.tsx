@@ -22,11 +22,11 @@ const instructions = [
 
 const HowToPlay = () => {
   return (
-    <main className="relative flex h-full w-full flex-col gap-20 px-6 pb-[3.75rem] pt-8">
-      <div className="z-10 flex items-center justify-between">
+    <main className="relative flex min-h-full w-full flex-col gap-20 px-6 pb-[3.75rem] pt-8 md:gap-[6.25rem] md:px-10 md:pb-[6.125rem] md:pt-[3.75rem]">
+      <div className="relative z-10 flex items-center justify-between md:justify-center">
         <Link
           href="/"
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF]"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF] md:absolute md:left-0"
         >
           <Image
             src="/images/icon-back.svg"
@@ -36,26 +36,26 @@ const HowToPlay = () => {
           />
         </Link>
         <h1
-          className={`${styles.h1} text-[3rem] leading-[120%]  tracking-[2.4px]`}
+          className={`${styles.h1} text-[3rem] leading-[120%] tracking-[2.4px]  md:text-[6.5rem] md:tracking-[-5.2px]`}
         >
           How To Play
         </h1>
       </div>
-      <section className="z-10 flex w-full flex-col gap-5">
+      <section className=" z-10 flex w-full flex-col gap-5 md:gap-8">
         {instructions.map((item, i) => (
           <div
             key={i}
-            className="flex flex-col gap-4 rounded-[20px] bg-white p-8"
+            className="relative flex flex-col gap-4 rounded-[20px] bg-white p-8 md:justify-center md:pl-[140px]"
           >
             <div className="flex gap-4">
-              <span className="text-2xl leading-[120%] tracking-[1.2px] text-blue">
+              <span className="text-2xl leading-[120%] tracking-[1.2px] text-blue md:absolute md:left-8 md:top-[calc(50%-((88px*1.2)/2))] md:text-[5.5rem]  md:tracking-normal">
                 0{i + 1}
               </span>
-              <h2 className="text-2xl uppercase leading-[120%] tracking-[1.2px] text-dark-navy">
+              <h2 className="text-2xl uppercase leading-[120%] tracking-[1.2px] text-dark-navy md:text-[2.5rem] md:tracking-[2px]">
                 {item.title}
               </h2>
             </div>
-            <p className="text-base leading-[120%] tracking-[0.8px] text-[#887DC0]">
+            <p className="text-base leading-[120%] tracking-[0.8px] text-[#887DC0] md:text-[1.25rem] md:tracking-[1px]">
               {item.description}
             </p>
           </div>
