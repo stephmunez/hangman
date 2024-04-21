@@ -11,3 +11,9 @@
   -webkit-text-fill-color: transparent;
   -webkit-text-stroke: 4px #243041;
 }
+
+@media (min-width: 768px) {
+  .modalMessage {
+    -webkit-text-stroke: 6px #243041;
+  }
+}
