@@ -11,7 +11,7 @@ export default function Home() {
         height={130}
         className="z-10 md:h-[11.563rem] md:w-[23.313rem]"
       />
-      <div className="z-0 -mt-20 flex w-full flex-col items-center gap-14 rounded-[48px] bg-gradient-to-b from-[#344ABA] to-[#001479]/[0.83] px-8 pb-16 pt-[8.5rem] shadow-[inset_0_-8px_0px_4px_rgba(20,14,102,1),_inset_0_6px_0px_8px_rgba(38,99,255,1)] md:-mt-[4.688rem] md:px-[10.313rem] md:pb-[3.125rem] md:pt-[8.125rem]">
+      <div className="z-0 -mt-20 flex w-full max-w-[592px] flex-col items-center gap-14 rounded-[48px] bg-gradient-to-b from-[#344ABA] to-[#001479]/[0.83] px-8 pb-16 pt-[8.5rem] shadow-[inset_0_-8px_0px_4px_rgba(20,14,102,1),_inset_0_6px_0px_8px_rgba(38,99,255,1)] md:-mt-[4.688rem] md:px-[10.313rem] md:pb-[3.125rem] md:pt-[8.125rem]">
         <Link
           href="/category"
           className="flex h-40 w-40 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF] shadow-[inset_0_-4px_0px_5px_rgba(36,48,65,1),_inset_0_-12px_0px_11px_rgba(157,45,245,1)] md:h-[12.5rem] md:w-[12.5rem]"
