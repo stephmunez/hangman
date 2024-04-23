@@ -10,3 +10,9 @@
     -webkit-text-stroke: 4px #243041;
   }
 }
+
+@media (min-width: 1280px) {
+  .h1 {
+    -webkit-text-stroke: 6px #243041;
+  }
+}
