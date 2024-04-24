@@ -23,27 +23,27 @@ const Category = () => {
     fetchData();
   }, []);
   return (
-    <main className="relative flex min-h-full w-full flex-col gap-[6.25rem] px-6 pb-20 pt-8 md:px-10 md:pb-[7rem] md:pt-[3.75rem]">
+    <main className="relative flex min-h-full w-full flex-col gap-[6.25rem] px-6 pb-20 pt-8 md:px-10 md:pb-[7rem] md:pt-[3.75rem] xl:gap-[9.688rem] xl:px-[7rem] xl:pb-[12.25rem] xl:pt-20">
       <div className="relative z-10 flex items-center justify-between md:justify-center">
         <Link
           href="/"
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF] md:absolute md:left-0 md:h-16 md:w-16"
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF] md:absolute md:left-0 md:h-16 md:w-16 xl:h-[5.875rem] xl:w-[5.875rem]"
         >
           <Image
             src="/images/icon-back.svg"
             width={18}
             height={16}
             alt="back icon"
-            className="md:h-[26px] md:w-[28px]"
+            className="md:h-[26px] md:w-[28px] xl:h-[38px] xl:w-[41px]"
           />
         </Link>
         <h1
-          className={`${styles.h1} text-[3rem] leading-[120%] tracking-[2.4px]  md:text-[6.5rem] md:tracking-[-5.2px]`}
+          className={`${styles.h1} text-[3rem] leading-[120%] tracking-[2.4px] md:text-[6.5rem]  md:tracking-[-5.2px] xl:text-[8.5rem]`}
         >
           Pick a Category
         </h1>
       </div>
-      <ul className="z-10 flex w-full flex-col gap-4 md:grid md:grid-cols-2 md:gap-8">
+      <ul className="z-10 flex w-full flex-col gap-4 md:grid md:grid-cols-2 md:gap-8 xl:grid-cols-3 xl:gap-x-8 xl:gap-y-[3.125rem]">
         {categories.map((item) => (
           <li key={item}>
             <Link
