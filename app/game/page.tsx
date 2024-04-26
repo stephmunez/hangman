@@ -25,22 +25,25 @@ const Modal: React.FC<ModalProps> = ({ message, onContinue, showModal }) => {
         </span>
 
         <button
-          className="w-full rounded-[40px] bg-blue px-16 py-3 text-center text-[2rem] uppercase leading-[120%] tracking-[1.6px] text-white shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(60,116,255,1)]"
+          className="group relative w-full rounded-[40px] bg-blue px-16 py-3 text-center text-[2rem] uppercase leading-[120%] tracking-[1.6px] text-white shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(60,116,255,1)]"
           onClick={onContinue}
         >
-          Continue
+          <span className="z-10">Continue</span>
+          <span className="pointer-events-none absolute inset-0 h-full w-full rounded-full bg-white opacity-0 shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(60,116,255,1)] transition-opacity duration-300 group-hover:opacity-25 group-active:opacity-25"></span>
         </button>
         <Link
           href="/category"
-          className="w-full rounded-[40px] bg-blue px-16 py-3 text-center text-[2rem] uppercase leading-[120%] tracking-[1.6px] text-white shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(60,116,255,1)]"
+          className="group relative w-full rounded-[40px] bg-blue px-16 py-3 text-center text-[2rem] uppercase leading-[120%] tracking-[1.6px] text-white shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(60,116,255,1)]"
         >
-          New Category
+          <span className="z-10">New Category</span>
+          <span className="pointer-events-none absolute inset-0 h-full w-full rounded-full bg-white opacity-0 shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(60,116,255,1)] transition-opacity duration-300 group-hover:opacity-25 group-active:opacity-25"></span>
         </Link>
         <Link
           href="/"
-          className="w-full rounded-[40px] bg-gradient-to-b from-[#FE71FE] to-[#7199FF] px-16 py-3 text-center text-[2rem] uppercase leading-[120%] tracking-[1.6px] text-white shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(198,66,251,1)]"
+          className="group relative w-full rounded-[40px] bg-gradient-to-b from-[#FE71FE] to-[#7199FF] px-16 py-3 text-center text-[2rem] uppercase leading-[120%] tracking-[1.6px] text-white shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(198,66,251,1)]"
         >
-          Quit Game
+          <span className="z-10">Quit Game</span>
+          <span className="pointer-events-none absolute inset-0 h-full w-full rounded-full bg-white opacity-0 shadow-[inset_0_-2px_0px_3px_rgba(20,14,102,1),_inset_0_1px_0px_6px_rgba(198,66,251,1)] transition-opacity duration-300 group-hover:opacity-25 group-active:opacity-25"></span>
         </Link>
       </div>
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 top-0 z-0 h-full w-full bg-gradient-to-b from-[#1A043A] from-0% via-[#151278] via-75% to-[#2B1677] to-100% opacity-75"></div>
