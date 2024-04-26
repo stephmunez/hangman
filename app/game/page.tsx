@@ -15,9 +15,9 @@ interface ModalProps {
 const Modal: React.FC<ModalProps> = ({ message, onContinue, showModal }) => {
   return (
     <div
-      className={`${showModal ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} fixed inset-0 z-50 flex items-center justify-center px-6 py-40 transition-opacity duration-300 md:px-[5.5rem] md:py-[15.313rem]`}
+      className={`${showModal ? "pointer-events-auto opacity-100" : "pointer-events-none opacity-0"} fixed inset-0 z-50 flex  items-center justify-center px-6 py-40 transition-opacity duration-300 md:px-[5.5rem] md:py-[15.313rem]`}
     >
-      <div className="relative z-10 flex w-full flex-col items-center gap-8 rounded-[48px] bg-gradient-to-b from-[#344ABA] to-[#001479]/[0.83] px-6 pb-[5.5rem] pt-[6.5rem] shadow-[inset_0_-8px_0px_4px_rgba(20,14,102,1),_inset_0_6px_0px_8px_rgba(38,99,255,1)] md:px-36 md:pb-[4.5rem] md:pt-[7.5rem]">
+      <div className="relative z-10 flex w-full max-w-[592px] flex-col items-center gap-8 rounded-[48px] bg-gradient-to-b from-[#344ABA] to-[#001479]/[0.83] px-6 pb-[5.5rem] pt-[6.5rem] shadow-[inset_0_-8px_0px_4px_rgba(20,14,102,1),_inset_0_6px_0px_8px_rgba(38,99,255,1)] md:px-36 md:pb-[4.5rem] md:pt-[7.5rem]">
         <span
           className={`${styles.modalMessage} absolute -top-14 text-[6.25rem] leading-[120%] tracking-[-4.7px] md:-top-[5.5rem] md:text-[8.375rem] md:tracking-[-6.7px]`}
         >
