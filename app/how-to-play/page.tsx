@@ -26,15 +26,16 @@ const HowToPlay = () => {
       <div className="relative z-10 flex items-center justify-between md:justify-center">
         <Link
           href="/"
-          className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF] md:absolute md:left-0 md:h-16 md:w-16 xl:h-[5.875rem] xl:w-[5.875rem]"
+          className="group relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF] shadow-[inset_0_-5px_0px_-1px_rgba(157,45,245,0.25)] md:absolute md:left-0 md:h-16 md:w-16 md:shadow-[inset_0_-6px_0px_7px_rgba(157,45,245,0.25)] xl:h-[5.875rem] xl:w-[5.875rem]"
         >
           <Image
             src="/images/icon-back.svg"
             width={18}
             height={16}
             alt="back icon"
-            className="md:h-[26px] md:w-[28px] xl:h-[38px] xl:w-[41px]"
+            className="z-10 md:h-[26px] md:w-[28px] xl:h-[38px] xl:w-[41px]"
           />
+          <span className="pointer-events-none absolute inset-0 h-full w-full rounded-full bg-white opacity-0 shadow-[inset_0_-5px_0px_-1px_rgba(157,45,245,0.25)] transition-opacity duration-300 group-hover:opacity-25 group-active:opacity-25 md:shadow-[inset_0_-6px_0px_7px_rgba(157,45,245,0.25)]"></span>
         </Link>
         <h1
           className={`${styles.h1} text-[3rem] leading-[120%] tracking-[2.4px] md:text-[6.5rem]  md:tracking-[-5.2px] xl:text-[8.5rem]`}
