@@ -211,7 +211,7 @@ const Game = () => {
       <div className="z-10 flex items-center justify-between md:px-2 xl:px-0">
         <div className="flex items-center gap-4 md:gap-8 xl:gap-14">
           <button
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF] md:h-16 md:w-16 xl:h-[5.875rem] xl:w-[5.875rem]"
+            className="group relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-b from-[#FE71FE] to-[#7199FF] shadow-[inset_0_-5px_0px_-1px_rgba(157,45,245,0.25)] md:h-16 md:w-16 md:shadow-[inset_0_-6px_0px_7px_rgba(157,45,245,0.25)] xl:h-[5.875rem] xl:w-[5.875rem]"
             onClick={openModal}
           >
             <Image
@@ -219,8 +219,9 @@ const Game = () => {
               width={16}
               height={14}
               alt="menu icon"
-              className="md:h-[22px] md:w-[26px] xl:h-[32px] xl:w-[38px]"
+              className="z-10 md:h-[22px] md:w-[26px] xl:h-[32px] xl:w-[38px]"
             />
+            <span className="pointer-events-none absolute inset-0 h-full w-full rounded-full bg-white opacity-0 shadow-[inset_0_-5px_0px_-1px_rgba(157,45,245,0.25)] transition-opacity duration-300 group-hover:opacity-25 group-active:opacity-25 md:shadow-[inset_0_-6px_0px_7px_rgba(157,45,245,0.25)]"></span>
           </button>
           <h1 className="text-[2.5rem] uppercase leading-[120%] tracking-[2px] text-white md:text-[3rem] md:tracking-[2.4px] xl:text-[5.5rem] xl:capitalize xl:tracking-normal">
             {category}
@@ -261,7 +262,7 @@ const Game = () => {
                 }
               }}
               onClick={() => handleGuess(letter.toUpperCase())}
-              className={`${guessedLetters.includes(letter) ? "opacity-25" : "opacity-100"} flex h-14 w-[1.813rem] items-center justify-center rounded-[8px] bg-white text-2xl leading-[150%] tracking-[-0.48px] text-dark-navy transition-opacity duration-300 md:h-[5.25rem] md:w-16 md:rounded-[24px] md:text-[3rem] md:tracking-[2.4px] xl:h-[5.25rem] xl:w-[6.813rem]`}
+              className={`${guessedLetters.includes(letter) ? "opacity-25" : "opacity-100 hover:bg-blue hover:text-white active:bg-blue active:text-white"} flex h-14 w-[1.813rem] items-center justify-center rounded-[8px] bg-white text-2xl leading-[150%] tracking-[-0.48px] text-dark-navy transition-all duration-300  md:h-[5.25rem] md:w-16 md:rounded-[24px] md:text-[3rem] md:tracking-[2.4px] xl:h-[5.25rem] xl:w-[6.813rem]`}
             >
               {letter}
             </button>
